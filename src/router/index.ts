@@ -13,12 +13,12 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/register",
-    name: "RegisterTodo",
+    name: "Register",
     component: RegisterTodo,
   },
   {
     path: "/edit",
-    name: "RegisterTodo",
+    name: "Edit",
     component: RegisterTodo,
   },
 ];
