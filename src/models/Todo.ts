@@ -28,7 +28,7 @@ export class Todo {
     this._id = newID;
   }
 
-  get id() {
+  get id(): string {
     return this._id;
   }
 
@@ -36,7 +36,7 @@ export class Todo {
     this._title = newTitle;
   }
 
-  get title() {
+  get title(): string {
     return this._title;
   }
 
@@ -44,7 +44,7 @@ export class Todo {
     this._detail = newDetail;
   }
 
-  get detail() {
+  get detail(): string {
     return this._detail;
   }
 
@@ -54,7 +54,7 @@ export class Todo {
     }
   }
 
-  get date() {
+  get date(): string {
     return this._date;
   }
 
@@ -64,7 +64,7 @@ export class Todo {
     }
   }
 
-  get time() {
+  get time(): string {
     return this._time;
   }
 
@@ -72,15 +72,15 @@ export class Todo {
     this._status = newStatus;
   }
 
-  get status() {
+  get status(): TodoStatus {
     return this._status;
   }
 
-  public clearDate() {
+  public clearDate(): void {
     this._date = "";
   }
 
-  public clearTime() {
+  public clearTime(): void {
     this._time = "";
   }
 }

@@ -115,7 +115,7 @@ export default class RegisterTodo extends Vue {
   showDatePicker = false;
   showTimePicker = false;
 
-  created() {
+  created(): void {
     if (this.$route.path === "/edit") {
       this.todo = Store.loadTodo();
       Store.deleteTodo();
@@ -125,25 +125,25 @@ export default class RegisterTodo extends Vue {
     }
   }
 
-  getUniqueID() {
+  getUniqueID(): string {
     return new Date().getTime().toString();
   }
 
-  addTodo() {
+  addTodo(): void {
     Store.saveTodo(this.todo);
     this.toHome();
   }
 
-  toHome() {
+  toHome(): void {
     this.$router.push("/");
   }
 
-  clearDate() {
+  clearDate(): void {
     this.todo.clearDate();
     this.$forceUpdate();
   }
 
-  clearTime() {
+  clearTime(): void {
     this.todo.clearTime();
     this.$forceUpdate();
   }

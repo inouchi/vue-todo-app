@@ -91,7 +91,7 @@ export default class value extends Vue {
     },
   ];
 
-  getItems(searchOption: RadioValue) {
+  getItems(searchOption: RadioValue): Todo[] {
     let items: Todo[] = [];
     switch (searchOption) {
       case RadioValue.All:
@@ -107,23 +107,23 @@ export default class value extends Vue {
     return items;
   }
 
-  getStatus(item: Todo) {
+  getStatus(item: Todo): string {
     return item.status === TodoStatus.COMPLETED ? "completed" : "work";
   }
 
-  getStatusColor(status: TodoStatus) {
+  getStatusColor(status: TodoStatus): string {
     return status === TodoStatus.COMPLETED ? "success" : "error";
   }
 
-  emitChangeStatus(item: Todo) {
+  emitChangeStatus(item: Todo): void {
     this.$emit("change-status", item);
   }
 
-  emitEeditTodo(item: Todo) {
+  emitEeditTodo(item: Todo): void {
     this.$emit("edit-todo", item);
   }
 
-  emitDeleteTodo(item: Todo) {
+  emitDeleteTodo(item: Todo): void {
     this.$emit("delete-todo", item);
   }
 }

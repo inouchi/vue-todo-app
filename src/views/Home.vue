@@ -90,7 +90,7 @@ export default class Home extends Vue {
     },
   ];
 
-  created() {
+  created(): void {
     this.todoList = Store.loadTodoList();
     const tmp = Store.loadTodo();
     if (tmp.id.length) {
@@ -101,12 +101,12 @@ export default class Home extends Vue {
     this.selectedRadioButton = RadioValue.All;
   }
 
-  addTodo(item: Todo) {
+  addTodo(item: Todo): void {
     this.todoList.unshift(item);
     Store.saveTodoList(this.todoList);
   }
 
-  changeStatus(item: Todo) {
+  changeStatus(item: Todo): void {
     item.status =
       item.status === TodoStatus.COMPLETED
         ? TodoStatus.WORK
@@ -114,28 +114,28 @@ export default class Home extends Vue {
     Store.saveTodoList(this.todoList);
   }
 
-  deleteTodo(item: Todo) {
+  deleteTodo(item: Todo): void {
     this.todoList = this.todoList.filter((v) => v.id !== item.id);
     Store.saveTodoList(this.todoList);
     this.$forceUpdate();
   }
 
-  deleteTodoList() {
+  deleteTodoList(): void {
     this.todoList = [];
     Store.saveTodoList(this.todoList);
     this.$forceUpdate();
   }
 
-  changeRadioButton() {
+  changeRadioButton(): void {
     this.$forceUpdate();
   }
 
-  editTodo(item: Todo) {
+  editTodo(item: Todo): void {
     Store.saveTodo(item);
     this.$router.push("/edit");
   }
 
-  toRegister() {
+  toRegister(): void {
     this.$router.push("/register");
   }
 }
