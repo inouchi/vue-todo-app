@@ -2,7 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
-import 'reflect-metadata';
+import "reflect-metadata";
 
 Vue.config.productionTip = false;
 

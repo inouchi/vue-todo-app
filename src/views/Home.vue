@@ -140,7 +140,5 @@ export default class Home extends Vue {
   }
 }
 </script>
-.right {
-  text-align: right
-}
+.right { text-align: right }
 <style scoped></style>
