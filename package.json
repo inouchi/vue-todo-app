@@ -10,6 +10,7 @@
   "dependencies": {
     "class-transformer": "^0.5.1",
     "reflect-metadata": "^0.1.13",
+    "vee-validate": "^3.4.14",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^9.1.2",
