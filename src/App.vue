@@ -15,6 +15,22 @@
     <v-main class="main">
       <router-view />
     </v-main>
+
+    <v-footer dark padless>
+      <v-card-text class="py-2 white--text text-center">
+        {{ new Date().getFullYear() }} — <strong>ToDo App</strong>
+        <v-btn
+          fab
+          small
+          text
+          class="mx-2"
+          target="_blank"
+          href="https://github.com/inouchi/todo-app"
+        >
+          <v-icon>mdi-github</v-icon>
+        </v-btn>
+      </v-card-text>
+    </v-footer>
   </v-app>
 </template>
 
