@@ -9,8 +9,8 @@
       >
         <v-radio
           v-for="item in radioItems"
-          :key="item.key"
-          :label="item.key"
+          :key="item.value"
+          :label="item.label"
           :value="item.value"
         ></v-radio>
       </v-radio-group>
@@ -27,7 +27,7 @@
             @click="toRegister()"
           >
             <v-icon>mdi-pencil-plus-outline</v-icon>
-            <span class="ml-2">Add ToDo</span>
+            <span class="ml-2">{{ $t("buttons.add_todo") }}</span>
           </v-btn>
 
           <v-btn
@@ -38,7 +38,7 @@
             @click="deleteTodoList()"
           >
             <v-icon>mdi-trash-can-outline</v-icon>
-            <span class="ml-2">All Delete</span>
+            <span class="ml-2">{{ $t("buttons.all_delete") }}</span>
           </v-btn>
         </v-col>
       </div>
@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import TodoList from "@/components/TodoList.vue";
 import { Todo, TodoStatus } from "@/models/Todo";
 import { Store } from "@/store/Store";
@@ -75,20 +75,7 @@ export default class Home extends Vue {
   todoList!: Todo[];
   selectedRadioButton!: RadioValue;
 
-  radioItems: Readonly<{ key: RadioType; value: RadioValue }>[] = [
-    {
-      key: "All",
-      value: RadioValue.All,
-    },
-    {
-      key: "Work",
-      value: RadioValue.Work,
-    },
-    {
-      key: "Completed",
-      value: RadioValue.Completed,
-    },
-  ];
+  radioItems: { label: string; value: RadioValue }[] = [];
 
   created(): void {
     this.todoList = Store.loadTodoList();
@@ -98,7 +85,30 @@ export default class Home extends Vue {
       this.addTodo(tmp);
       Store.deleteTodo();
     }
+    this.setupRadioItems();
     this.selectedRadioButton = RadioValue.All;
+  }
+
+  @Watch("$i18n.locale")
+  onI18nLocale(): void {
+    this.setupRadioItems();
+  }
+
+  setupRadioItems(): void {
+    this.radioItems = [
+      {
+        label: this.$t("statuses.all").toString(),
+        value: RadioValue.All,
+      },
+      {
+        label: this.$t("statuses.work").toString(),
+        value: RadioValue.Work,
+      },
+      {
+        label: this.$t("statuses.completed").toString(),
+        value: RadioValue.Completed,
+      },
+    ];
   }
 
   addTodo(item: Todo): void {

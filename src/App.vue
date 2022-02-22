@@ -10,6 +10,35 @@
         width="40"
       />
       <h3>ToDo App</h3>
+
+      <v-spacer></v-spacer>
+
+      <v-menu>
+        <template v-slot:activator="{ on }">
+          <v-btn text v-on="on">
+            <v-icon>mdi-translate</v-icon>
+            <v-icon small>mdi-chevron-down</v-icon>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item-group
+            v-model="selectedLanguage"
+            mandatory
+            color="primary"
+            @change="changeLanguage()"
+          >
+            <v-list-item
+              v-for="item in LANGUAGE_ITEMS"
+              :key="item.value"
+              :value="item.value"
+            >
+              <v-list-item-content>
+                <v-list-item-title v-text="item.text"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-menu>
     </v-app-bar>
 
     <v-main class="main">
@@ -37,8 +66,30 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
+export const LanguageType = {
+  JA: "ja",
+  EN: "en",
+} as const;
+
 @Component({})
-export default class App extends Vue {}
+export default class App extends Vue {
+  LANGUAGE_ITEMS = [
+    {
+      text: "日本語",
+      value: LanguageType.JA,
+    },
+    {
+      text: "English",
+      value: LanguageType.EN,
+    },
+  ] as const;
+
+  selectedLanguage = this.$i18n.locale;
+
+  changeLanguage(): void {
+    this.$i18n.locale = this.selectedLanguage;
+  }
+}
 </script>
 
 <style scoped>

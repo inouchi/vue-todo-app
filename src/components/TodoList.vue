@@ -5,7 +5,7 @@
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
-          label="Search"
+          :label="$t('messages.search')"
           single-line
           hide-details
         ></v-text-field>
@@ -14,6 +14,7 @@
         :headers="headers"
         :items="getItems(searchOption)"
         :search="search"
+        :locale="getLocale()"
       >
         <template v-slot:item.status="{ item }">
           <v-chip
@@ -52,9 +53,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import { Todo, TodoStatus } from "@/models/Todo";
 import { RadioValue } from "@/views/Home.vue";
+import { LanguageType } from "@/App.vue";
 
 @Component({})
 export default class value extends Vue {
@@ -65,31 +67,62 @@ export default class value extends Vue {
   searchOption!: RadioValue;
 
   search = "";
+  headers = [{}];
 
-  readonly headers = [
-    { text: "Title", value: "title", class: "blue lighten-4", width: "20%" },
-    {
-      text: "Detail",
-      value: "detail",
-      class: "blue lighten-4",
-      width: "40%",
-    },
-    { text: "Date", value: "date", class: "blue lighten-4", width: "10%" },
-    { text: "Time", value: "time", class: "blue lighten-4", width: "10%" },
-    {
-      text: "Status",
-      value: "status",
-      class: "blue lighten-4",
-      width: "10%",
-    },
-    {
-      text: "",
-      value: "action",
-      class: "blue lighten-4",
-      sortable: false,
-      width: "10%",
-    },
-  ];
+  created(): void {
+    this.setupHeaders();
+  }
+
+  @Watch("$i18n.locale")
+  onI18nLocale(): void {
+    this.setupHeaders();
+  }
+
+  setupHeaders(): void {
+    this.headers = [
+      {
+        text: this.$t("messages.title"),
+        value: "title",
+        class: "blue lighten-4",
+        width: "20%",
+      },
+      {
+        text: this.$t("messages.detail"),
+        value: "detail",
+        class: "blue lighten-4",
+        width: "40%",
+      },
+      {
+        text: this.$t("messages.date"),
+        value: "date",
+        class: "blue lighten-4",
+        width: "10%",
+      },
+      {
+        text: this.$t("messages.time"),
+        value: "time",
+        class: "blue lighten-4",
+        width: "10%",
+      },
+      {
+        text: this.$t("messages.status"),
+        value: "status",
+        class: "blue lighten-4",
+        width: "10%",
+      },
+      {
+        text: "",
+        value: "action",
+        class: "blue lighten-4",
+        sortable: false,
+        width: "10%",
+      },
+    ];
+  }
+
+  getLocale(): string {
+    return this.$i18n.locale === LanguageType.JA ? "jp-ja" : "en-US";
+  }
 
   getItems(searchOption: RadioValue): Todo[] {
     let items: Todo[] = [];
@@ -108,7 +141,9 @@ export default class value extends Vue {
   }
 
   getStatus(item: Todo): string {
-    return item.status === TodoStatus.COMPLETED ? "completed" : "work";
+    return item.status === TodoStatus.COMPLETED
+      ? this.$t("statuses.completed").toString()
+      : this.$t("statuses.work").toString();
   }
 
   getStatusColor(status: TodoStatus): string {

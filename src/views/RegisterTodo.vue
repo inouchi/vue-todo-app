@@ -10,11 +10,14 @@
           >
             <v-text-field
               v-model="todo.title"
-              label="Title"
+              :label="$t('messages.title')"
               :error-messages="errors"
             ></v-text-field>
           </validation-provider>
-          <v-textarea v-model="todo.detail" label="Detail"></v-textarea>
+          <v-textarea
+            v-model="todo.detail"
+            :label="$t('messages.detail')"
+          ></v-textarea>
           <v-row>
             <v-col>
               <v-menu
@@ -28,7 +31,7 @@
                 <template v-slot:activator="{ on }">
                   <v-text-field
                     v-model="todo.date"
-                    label="Date"
+                    :label="$t('messages.date')"
                     prepend-icon="mdi-calendar"
                     readonly
                     v-on="on"
@@ -44,6 +47,7 @@
                   v-model="todo.date"
                   @input="showDatePicker = false"
                   :day-format="(date) => new Date(date).getDate()"
+                  :locale="getLocale()"
                 ></v-date-picker>
               </v-menu>
             </v-col>
@@ -63,7 +67,7 @@
                   <v-text-field
                     v-model="todo.time"
                     prepend-icon="mdi-clock-outline"
-                    label="Time"
+                    :label="$t('messages.time')"
                     readonly
                     v-on="on"
                   >
@@ -117,13 +121,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { Todo, TodoStatus } from "@/models/Todo";
 import { Store } from "@/store/Store";
-import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
-import { required } from "vee-validate/dist/rules";
-
-extend("required", required);
+import { ValidationProvider, ValidationObserver } from "vee-validate";
+import { LanguageType } from "@/App.vue";
 
 @Component({ components: { ValidationProvider, ValidationObserver } })
 export default class RegisterTodo extends Vue {
@@ -141,8 +143,19 @@ export default class RegisterTodo extends Vue {
     }
   }
 
+  @Watch("$i18n.locale")
+  onI18nLocale(): void {
+    type ValidationObserverRef = InstanceType<typeof ValidationObserver>;
+    const observer = this.$refs.observer as ValidationObserverRef;
+    observer.reset();
+  }
+
   getUniqueID(): string {
     return new Date().getTime().toString();
+  }
+
+  getLocale(): string {
+    return this.$i18n.locale === LanguageType.JA ? "jp-ja" : "en-US";
   }
 
   async clickRegisterButton(): Promise<void> {
