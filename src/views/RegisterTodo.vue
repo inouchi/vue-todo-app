@@ -35,13 +35,9 @@
                     prepend-icon="mdi-calendar"
                     readonly
                     v-on="on"
+                    clearable
                   >
-                    <template v-slot:append-outer>
-                      <v-btn x-small fab text @click="clearDate()"
-                        ><v-icon>mdi-close</v-icon></v-btn
-                      >
-                    </template></v-text-field
-                  >
+                  </v-text-field>
                 </template>
                 <v-date-picker
                   v-model="todo.date"
@@ -70,12 +66,8 @@
                     :label="$t('messages.time')"
                     readonly
                     v-on="on"
+                    clearable
                   >
-                    <template v-slot:append-outer>
-                      <v-btn x-small fab text @click="clearTime()"
-                        ><v-icon>mdi-close</v-icon></v-btn
-                      >
-                    </template>
                   </v-text-field>
                 </template>
                 <v-time-picker
@@ -170,16 +162,6 @@ export default class RegisterTodo extends Vue {
 
   toHome(): void {
     this.$router.push("/");
-  }
-
-  clearDate(): void {
-    this.todo.clearDate();
-    this.$forceUpdate();
-  }
-
-  clearTime(): void {
-    this.todo.clearTime();
-    this.$forceUpdate();
   }
 }
 </script>

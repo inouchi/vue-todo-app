@@ -49,6 +49,11 @@ export class Todo {
   }
 
   set date(newDate: string) {
+    if (!newDate) {
+      this._date = "";
+      return;
+    }
+
     if (Todo.DATE_REGEX.test(newDate)) {
       this._date = newDate;
     }
@@ -59,6 +64,11 @@ export class Todo {
   }
 
   set time(newTime: string) {
+    if (!newTime) {
+      this._time = "";
+      return;
+    }
+
     if (Todo.TIME_REGEX.test(newTime)) {
       this._time = newTime;
     }
@@ -74,13 +84,5 @@ export class Todo {
 
   get status(): TodoStatus {
     return this._status;
-  }
-
-  public clearDate(): void {
-    this._date = "";
-  }
-
-  public clearTime(): void {
-    this._time = "";
   }
 }
