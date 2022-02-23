@@ -13,7 +13,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-menu>
+      <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn text v-on="on">
             <v-icon>mdi-translate</v-icon>
