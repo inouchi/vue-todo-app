@@ -9,7 +9,7 @@ export const messages = {
       search: "検索",
     },
     buttons: {
-      add_todo: "ToDo追加",
+      add_todo: "タスク追加",
       all_delete: "すべて削除",
       agree: "はい",
       disagree: "いいえ",
