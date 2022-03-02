@@ -11,6 +11,8 @@ export const messages = {
     buttons: {
       add_todo: "ToDo追加",
       all_delete: "すべて削除",
+      agree: "はい",
+      disagree: "いいえ",
     },
     statuses: {
       all: "すべて",
@@ -19,6 +21,14 @@ export const messages = {
     },
     validations: {
       required: "{_field_}は必須項目です。",
+    },
+    dialogs: {
+      titles: {
+        delete: "削除確認",
+      },
+      messages: {
+        delete: "全てのタスクを完全に削除します。実行してもよろしいでしょうか。",
+      },
     },
   },
   en: {
@@ -33,6 +43,8 @@ export const messages = {
     buttons: {
       add_todo: "Add ToDo",
       all_delete: "All Delete",
+      agree: "Agree",
+      disagree: "Disagree",
     },
     statuses: {
       all: "All",
@@ -41,6 +53,14 @@ export const messages = {
     },
     validations: {
       required: "{_field_} is required.",
+    },
+    dialogs: {
+      titles: {
+        delete: "Deletion Confirmation",
+      },
+      messages: {
+        delete: "Completely delete all todo. May I execute it?",
+      },
     },
   },
 } as const;

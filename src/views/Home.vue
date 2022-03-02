@@ -1,5 +1,16 @@
 <template>
   <v-container>
+    <confirmation-dialog
+      :showDialog="showAllDeleteConfirmationDialog"
+      :title="$t('dialogs.titles.delete').toString()"
+      :message="$t('dialogs.messages.delete').toString()"
+      @click-agree="
+        showAllDeleteConfirmationDialog = false;
+        deleteTodoList();
+      "
+      @click-disagree="showAllDeleteConfirmationDialog = false"
+    ></confirmation-dialog>
+
     <v-row>
       <v-radio-group
         v-model="selectedRadioButton"
@@ -35,7 +46,7 @@
             class="mb-2"
             elevation="0"
             style="text-transform: none"
-            @click="deleteTodoList()"
+            @click="showAllDeleteConfirmationDialog = true"
           >
             <v-icon>mdi-trash-can-outline</v-icon>
             <span class="ml-2">{{ $t("buttons.all_delete") }}</span>
@@ -59,6 +70,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import TodoList from "@/components/TodoList.vue";
+import ConfirmationDialog from "@/components/ConfirmationDialog.vue";
 import { Todo, TodoStatus } from "@/models/Todo";
 import { Store } from "@/store/Store";
 
@@ -70,12 +82,12 @@ export enum RadioValue {
   Completed,
 }
 
-@Component({ components: { TodoList } })
+@Component({ components: { TodoList, ConfirmationDialog } })
 export default class Home extends Vue {
   todoList!: Todo[];
   selectedRadioButton!: RadioValue;
-
   radioItems: { label: string; value: RadioValue }[] = [];
+  showAllDeleteConfirmationDialog = false;
 
   created(): void {
     this.todoList = Store.loadTodoList();
