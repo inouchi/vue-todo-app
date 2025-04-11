@@ -1,6 +1,6 @@
 # vue-todo-app
 ***vue-todo-app*** is a sample todo app built with the Vue framework.  
-See https://vue-todo-app.tk for the live version.
+See https://vue-todo-app-345.pages.dev for the live version.
 
 ## Project setup
 ```
